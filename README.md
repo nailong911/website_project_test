@@ -1,130 +1,32 @@
-# website_project_test
-UltraPortfolio — 高度可定制化的全栈个人作品集平台  一款专为学生、程序员、设计师打造的全栈 Portfolio 网站。 支持注册登录、作品管理、课程表管理、备忘录、主题颜色、数据持久化等实用功能。
+# Ultra Portfolio - Prisma backend (SQLite)
 
+This backend uses Prisma + SQLite and is preconfigured to work with the front-end you have.
+Follow these steps to run locally (Node+npm already required):
 
-# ULTRA PORTFOLIO IMPROVED --- Full-Stack Project
+1. Install dependencies:
+   ```bash
+   cd backend_prisma
+   npm install
+   ```
 
-一个基于 **Vue 3 + Vite + Pinia + Router 前端** 与 **Node.js + Express +
-MongoDB 后端** 构建的全栈个人作品展示与管理系统。\
-包含用户认证、个人信息管理、主题切换、数据存储、页面路由等功能。
+2. Generate Prisma client and create database + run migrations:
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev --name init
+   ```
+   This will create `prisma/dev.db` (SQLite) and apply schema.
 
-------------------------------------------------------------------------
+3. Start server:
+   ```bash
+   npm start
+   ```
 
-## 📁 项目结构
+4. Test:
+   - API root: http://localhost:3000/api/test
+   - Register: POST http://localhost:3000/api/auth/register
+     body: { "username":"you", "email":"you@example.com", "password":"pwd" }
 
-    ULTRA_PORTFOLIO_IMPROVED
-    ├── backend/
-    │   ├── controllers/
-    │   ├── middleware/
-    │   ├── models/
-    │   ├── routes/
-    │   ├── utils/
-    │   ├── server.js
-    │   └── package.json
-    │
-    ├── frontend/
-    │   ├── src/
-    │   │   ├── assets/
-    │   │   ├── components/
-    │   │   ├── pages/
-    │   │   ├── services/
-    │   │   ├── stores/
-    │   │   ├── router.js
-    │   │   └── main.js
-    │   ├── vite.config.js
-    │   └── package.json
-    │
-    ├── db/
-    └── README.md
-
-------------------------------------------------------------------------
-
-## ⚙️ 技术栈
-
-### 🖥 前端
-
--   Vue 3\
--   Vite\
--   Pinia\
--   Vue Router\
--   Axios
-
-### 🔧 后端
-
--   Node.js\
--   Express\
--   MongoDB + Mongoose\
--   JWT\
--   CORS
-
-------------------------------------------------------------------------
-
-## 🚀 运行步骤
-
-### **1️⃣ 启动后端 Backend**
-
-``` bash
-cd backend
-npm install
-```
-
-`.env` 文件：
-
-    PORT=3000
-    MONGO_URL=mongodb://localhost:27017/portfolio
-    JWT_SECRET=your_secret_key
-
-启动：
-
-``` bash
-npm start
-```
-
-------------------------------------------------------------------------
-
-### **2️⃣ 启动前端 Frontend**
-
-``` bash
-cd frontend
-npm install
-```
-
-`.env` 文件：
-
-    VITE_API_URL=http://localhost:3000
-
-启动：
-
-``` bash
-npm run dev
-```
-
-浏览器访问：
-
-👉 http://localhost:5173
-
-------------------------------------------------------------------------
-
-## 🧰 认证机制
-
--   登录 → 获取 JWT\
--   前端存储 token\
--   Axios 自动携带 token\
--   后端验证 token\
--   过期自动登出
-
-------------------------------------------------------------------------
-
-## 📌 可扩展方向
-
--   博客系统\
--   文件上传\
--   后台管理\
--   Dashboard\
--   作品分类
-
-------------------------------------------------------------------------
-
-## 🏁 完成！
-
-你已经拥有完整可运行的前后端项目 README。
+Notes:
+- JWT secret can be set via env `JWT_SECRET`
+- Uploaded files are saved under `uploads/`
+- If you want to keep the DB in repo, copy `prisma/dev.db` after migrate
